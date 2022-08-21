@@ -54,22 +54,6 @@ async function getAddresses() {
   return res;
 }
 
-async function getAddressByZipCode(zipcode) {
-  const res = await pg("tbl_address")
-    .where({ zipcode, active: true })
-    .select(
-      "pk_address",
-      "zipcode",
-      "street",
-      "district",
-      "city",
-      "state",
-      "country"
-    );
-
-  return res[0];
-}
-
 async function getAllAddressesByZipCode(zipcode) {
   const res = await pg("tbl_address")
     .where({ zipcode })
@@ -92,7 +76,6 @@ module.exports = {
   updateAddressById,
   deleteAddressById,
   getAddress,
-  getAddressByZipCode,
   getAllAddressesByZipCode,
   getAddresses,
 };

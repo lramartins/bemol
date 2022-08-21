@@ -148,6 +148,23 @@ async function getAddress(req, res) {
   }
 }
 
+async function getAddressByZipCode(req, res) {
+  try {
+    let { zipcode } = req.params;
+    if (isNaN(Number(zipcode)))
+      return res.status(400).send({ msg: messages.invalidRequest });
+
+    const address = await addressModel.getAllAddressesByZipCode(zipcode);
+
+    if (!address || !address.pk_address)
+      return res.send({ msg: messages.addressNotFound });
+
+    return res.send(address);
+  } catch (error) {
+    return res.status(500).send({ msg: messages.uncaughtError, err: error });
+  }
+}
+
 async function getAddresses(_, res) {
   try {
     const address = await addressModel.getAddresses();
@@ -166,5 +183,6 @@ module.exports = {
   updateAddress,
   inactivateAddress,
   getAddress,
+  getAddressByZipCode,
   getAddresses,
 };

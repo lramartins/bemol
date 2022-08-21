@@ -26,4 +26,9 @@ module.exports = [
     controllerFunction: addressController.getAddresses,
     endpoint: "/address",
   },
+  {
+    verb: "get",
+    controllerFunction: addressController.getAddressByZipCode,
+    endpoint: "/address/zipcode/:zipcode",
+  },
 ];
